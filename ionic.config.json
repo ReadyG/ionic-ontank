@@ -1,0 +1,7 @@
+{
+  "name": "ionic-ontank",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
