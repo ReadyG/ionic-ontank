@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title >Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-card class="card">
+        <ion-card-header>
+            <ion-card-title class="cardtitle">Login</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item class="cardinput">
+            <ion-input placeholder="Email" inputmode="email" type="email" #username></ion-input>
+          </ion-item>
+          <ion-item class="cardinput">
+            <ion-input class="input" placeholder="password" inputmode="password" type="password" #password></ion-input>
+          </ion-item>
+          <ion-grid>
+            <ion-button class="button button-block" (click)="LoginOnSubmit(username.value, password.value)">Login</ion-button>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+    <ion-row>
+      <ion-card>
+        <ion-card-content>
+          <ion-list>
+            <ion-item>
+              <ion-label>Select a Device</ion-label>
+              <ion-select placeholder="Click Here">
+                <ion-select-option value="f">tesla-photon</ion-select-option>
+                <ion-select-option value="m">alex-photon</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+  </ion-grid>
+</ion-content>

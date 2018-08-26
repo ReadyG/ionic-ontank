@@ -4,11 +4,11 @@ import { HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Authorization': 'testapp-6704:07702a6ed62fb5aa7c703e6f195dbf11d2c73da6'
+    'Authorization': 'particle:particle'
   })
 };
 
-const apiRoot = 'https://api.particle.io/v1'
+const apiRoot = 'https://api.particle.io'
 var accessToken = '695635676ab7e30b840c6cae7c9e2a540d3371ec'
 const photonVar = 'temp'
 
@@ -18,11 +18,27 @@ const photonVar = 'temp'
 
 export class DataService {
 
+
   constructor(private http: HttpClient) { }
 
 
   getTemp() {
-    return this.http.get(apiRoot+'/devices/250030000a47343232363230/'+photonVar+'?access_token='+accessToken)
+    return this.http.get(apiRoot+'/v1/devices/250030000a47343232363230/'+photonVar+'?access_token='+accessToken)
+  }
+
+  userAuthentication(email,password) {
+    var data = "grant_type=password&username="+email+"&password="+password;
+    var base64Auth = btoa("particle:particle");
+    var reqHeader = new HttpHeaders();
+    reqHeader = reqHeader.append('Content-Type','application/x-www-form-urlencoded');
+    reqHeader = reqHeader.append('Authorization','Basic '+base64Auth);
+    
+    console.log(apiRoot+'/oauth/token');
+    console.log(reqHeader);
+    console.log(data);
+    console.log(base64Auth);
+    
+    return this.http.post(apiRoot+'/oauth/token',data,{headers: reqHeader});
   }
 
 
