@@ -1,4 +1,8 @@
+import { DataService } from './../data.service';
 import { Component } from '@angular/core';
+import { interval } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-home',
@@ -6,5 +10,22 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+
+  photon: Object;
+
+  constructor(private data: DataService) { }
+
+  ngOnInit() {
+    this.data.getTemp()
+      .subscribe(data => this.photon = data)
+    
+    interval(1000).pipe(
+      switchMap(() => 
+        this.data.getTemp()
+      )
+    )
+      .subscribe(data => this.photon = data
+    )
+  }
 
 }

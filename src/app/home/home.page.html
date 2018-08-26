@@ -7,9 +7,16 @@
     <ion-card-header>
       <ion-card-title class="cardtitle">TEMP</ion-card-title>
     </ion-card-header>
-  
-    <ion-card-content class="cardcontent">
-     78.2
+    <ion-card-content class="cardcontent" *ngIf="photon">
+      {{ photon.result }}
+    </ion-card-content>
+  </ion-card>
+  <ion-card class="card">
+    <ion-card-header>
+      <ion-card-title class="cardtitle">PH</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="cardcontent" *ngIf="photon">
+      8.2
     </ion-card-content>
   </ion-card>
 </ion-content>
