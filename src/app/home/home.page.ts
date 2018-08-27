@@ -16,7 +16,7 @@ export class HomePage {
   constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.data.getTemp()
+    this.data.getTemp(localStorage.getItem('userToken'))
       .subscribe(data => this.photon = data)
     
     interval(1000).pipe(

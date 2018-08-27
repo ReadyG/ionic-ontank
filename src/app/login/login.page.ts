@@ -10,7 +10,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class LoginPage implements OnInit {
 
+  objerror: Object;
+  public devices = [];
+  
   isLoginError: Boolean = false;
+  devicesExist: boolean = false;
 
   constructor(private dataService: DataService, private router: Router) { }
 
@@ -20,14 +24,21 @@ export class LoginPage implements OnInit {
   LoginOnSubmit(email,password) {
     this.dataService.userAuthentication(email,password).subscribe((data : any) => {
       localStorage.setItem('userToken',data.access_token);
-      this.router.navigate(['']);
-      console.log(localStorage.getItem("userToken"))
+      /*this.router.navigate(['']);*/
+      console.log(localStorage.getItem('userToken'));
+      
+      this.listDevices();
     },
-  (err : HttpErrorResponse)=>{
-    this.isLoginError = true;
-  });
+    (err : HttpErrorResponse)=>{
+      this.objerror = err.error;
+      this.isLoginError = true;
+    });
   }
 
-
-
+  private listDevices() {
+    this.dataService.listDevices(localStorage.getItem('userToken'))
+      .subscribe(data => this.devices = data);
+      this.devicesExist = true;
+      console.log(this.devices);
+  }
 }
