@@ -3,11 +3,17 @@
 </ion-header>
 
 <ion-content padding><br><br><br>
+  <ion-card class="error">
+    <ion-card-content *ngIf="connectionError">
+        Connection Error
+    </ion-card-content>
+  </ion-card>
   <ion-card class="card">
     <ion-card-header>
       <ion-card-title class="cardtitle">TEMP</ion-card-title>
     </ion-card-header>
     <ion-card-content class="cardcontent" *ngIf="photon">
+      
       {{ photon.result }}
     </ion-card-content>
   </ion-card>

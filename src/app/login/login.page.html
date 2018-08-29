@@ -12,10 +12,10 @@
         </ion-card-header>
         <ion-card-content>
           <ion-item class="cardinput">
-            <ion-input placeholder="Email" inputmode="email" type="email" #username (keyup.enter)="LoginOnSubmit(username.value, password.value)"></ion-input>
+            <ion-input value="81alex9@gmail.com" placeholder="Email" inputmode="email" type="email" #username (keyup.enter)="LoginOnSubmit(username.value, password.value)"></ion-input>
           </ion-item>
           <ion-item class="cardinput">
-            <ion-input class="input" placeholder="password" inputmode="password" type="password" #password (keyup.enter)="LoginOnSubmit(username.value, password.value)"></ion-input>
+            <ion-input value="skimin828" class="input" placeholder="password" inputmode="password" type="password" #password (keyup.enter)="LoginOnSubmit(username.value, password.value)"></ion-input>
           </ion-item>
           <ion-grid>
             <ion-button class="button button-block" (click)="LoginOnSubmit(username.value, password.value)">Login</ion-button>
@@ -26,15 +26,17 @@
       </ion-card>
     </ion-row>
     <ion-row *ngIf="devicesExist">
-      <ion-card>
+      <ion-card class="bigcard">
+          <ion-card-header>
+              <ion-card-title class="cardtitle">Select a Device</ion-card-title>
+          </ion-card-header>
         <ion-card-content>
           <ion-list>
-            <ion-item>
-              <ion-label>Select a Device</ion-label>
-              <ion-select placeholder="Click Here">
-                <ion-select-option value="device.name" *ngFor="let device of devices">{{device.name}}</ion-select-option>
+              <ion-select placeholder="Click Here" [(ngModel)]="devSelected" (ionChange)="NotifySelect()">
+                <ion-select-option [value]="device.id" *ngFor="let device of devices">
+                  {{device.name}}
+                </ion-select-option>
               </ion-select>
-            </ion-item>
           </ion-list>
         </ion-card-content>
       </ion-card>

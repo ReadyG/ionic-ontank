@@ -1,8 +1,9 @@
-import { IDevice } from './device';
+import { IDevice } from './I-device';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { IAccessToken } from './I-access-token';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -28,7 +29,15 @@ export class DataService {
     return this.http.get(apiRoot+'/v1/devices/'+deviceId+'/'+photonVar+'?access_token='+accessToken)
   }
 
-  userAuthentication(email,password) {
+  listAccessTokens(email,password): Observable<IAccessToken[]> {
+    var base64Auth = btoa(email+':'+password);
+    var reqHeader = new HttpHeaders();
+    reqHeader = reqHeader.append('Content-Type','application/x-www-form-urlencoded');
+    reqHeader = reqHeader.append('Authorization','Basic '+base64Auth);
+    return this.http.get<IAccessToken[]>(apiRoot+'/v1/access_tokens',{headers: reqHeader});
+  }
+
+  generateAccessToken(email,password) {
     var data = "grant_type=password&username="+email+"&password="+password;
     var base64Auth = btoa("particle:particle");
     var reqHeader = new HttpHeaders();
